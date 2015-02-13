@@ -1,17 +1,16 @@
-FROM centos:centos6
+FROM centos:7
 MAINTAINER Johannes Nickel <jn@znuny.com>
 MAINTAINER Ryuta Otaki <otaki.ryuta@classmethod.jp>
 
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+RUN rpm -Uvh http://ftp.riken.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 RUN yum update -y
 RUN yum -y install \
-  mysql \
+  mariadb \
   procmail \
   cronie \
   httpd httpd-devel \
   perl-core \
-  mod_perl 
-RUN yum -y install \
+  mod_perl \
   "perl(Apache2::Reload)" \
   "perl(Archive::Zip)" \
   "perl(Crypt::Eksblowfish::Bcrypt)" \
@@ -35,16 +34,16 @@ RUN yum -y install \
   "perl(YAML::XS)"
 
 #OTRS
-RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/6/otrs-4.0.5-01.noarch.rpm
+RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.5-01.noarch.rpm
 
 #OTRS COPY Configs
-ADD Config.pm    /opt/otrs/Kernel/Config.pm
-RUN chgrp apache /opt/otrs/Kernel/Config.pm
-RUN chmod g+w    /opt/otrs/Kernel/Config.pm
+ADD otrs/Config.pm /opt/otrs/Kernel/Config.pm
+RUN chgrp apache   /opt/otrs/Kernel/Config.pm
+RUN chmod g+w      /opt/otrs/Kernel/Config.pm
 
 #reconfigure httpd
-RUN sed -i "s/mod_perl.c/mod_perl.so/" /etc/httpd/conf.d/zzz_otrs.conf
-RUN sed -i "s/error\/noindex.html/otrs\/index.pl/" /etc/httpd/conf.d/welcome.conf
+ADD httpd/zzz_otrs.conf /etc/httpd/conf.d/zzz_otrs.conf
+RUN rm /etc/httpd/conf.d/welcome.conf
 
 #enable crons
 #WORKDIR /opt/otrs/var/cron/
