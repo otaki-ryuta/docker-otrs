@@ -76,7 +76,6 @@ sub Load {
     # $Self->{SessionUseCookie} = 0;
     # $Self->{CheckMXRecord} = 0;
  
-    $Self->{'SecureMode'} = 1;
     $Self->{'CheckEmailAddresses'} = 0;
     $Self->{'CheckMXRecord'}       = 0;
     $Self->{'Organization'}        = '';
@@ -94,6 +93,9 @@ sub Load {
       'Prio' => '100',
       'Show' => 'false'
     };
+    # Add for ELB frontend
+    $Self->{SessionCheckRemoteIP} = 0;
+
     # ---------------------------------------------------- #
 
     # ---------------------------------------------------- #
