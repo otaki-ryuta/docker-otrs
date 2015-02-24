@@ -34,7 +34,7 @@ RUN yum -y install \
   "perl(YAML::XS)"
 
 #OTRS
-RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.5-01.noarch.rpm
+RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.6-01.noarch.rpm
 
 #OTRS COPY Configs
 ADD otrs/Config.pm /opt/otrs/Kernel/Config.pm
