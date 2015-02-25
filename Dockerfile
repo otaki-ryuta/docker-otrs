@@ -31,7 +31,8 @@ RUN yum -y install \
   "perl(Template)" \
   "perl(Text::CSV_XS)" \
   "perl(XML::Parser)" \
-  "perl(YAML::XS)"
+  "perl(YAML::XS)" \
+  "perl(DBD::mysql)"
 
 #OTRS
 RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.6-01.noarch.rpm
