@@ -1,0 +1,13 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "takipone/otrs",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": ["80", "443"]
+    }
+  ],
+  "Logging": "/var/log/httpd"
+}
