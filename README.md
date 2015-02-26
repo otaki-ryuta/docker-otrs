@@ -12,13 +12,20 @@ OTRS4向けDockerfileとデプロイ用設定ファイル
 ### 開発環境
 
 ```
-$ cd <REPO_ROOT>
-$ vgrant up
+$ vagrant box add utopic64 https://cloud-images.ubuntu.com/vagrant/utopic/current/utopic-server-cloudimg-amd64-vagrant-disk1.box
 ```
+
+```
+$ cd <REPO_ROOT>
+$ vagrant up
+```
+
+ブラウザで`192.168.33.11/otrs/installer.pl`にアクセス
 
 ### 本番環境
 
 ```
+$ cd <REPO_ROOT>
 $ eb init
 $ eb create
 ```
