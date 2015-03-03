@@ -2,7 +2,7 @@ FROM centos:7
 MAINTAINER Johannes Nickel <jn@znuny.com>
 MAINTAINER Ryuta Otaki <otaki.ryuta@classmethod.jp>
 
-RUN rpm -Uvh http://ftp.riken.jp/Linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+RUN yum install -y epel-release
 RUN yum update -y
 RUN yum -y install \
   mariadb \
