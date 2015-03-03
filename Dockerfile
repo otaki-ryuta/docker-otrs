@@ -37,6 +37,13 @@ RUN yum -y install \
 #OTRS
 RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.6-01.noarch.rpm
 
+# OTRS additional Japanese TTF fonts for exporting various data in PDF format
+RUN yum -y install \
+  ipa-gothic-fonts \
+  ipa-mincho-fonts \
+  ipa-pgothic-fonts \
+  ipa-pmincho-fonts
+
 #OTRS COPY Configs
 ADD otrs/Config.pm /opt/otrs/Kernel/Config.pm
 RUN chgrp apache   /opt/otrs/Kernel/Config.pm
