@@ -7,35 +7,41 @@ RUN yum update -y
 RUN yum -y install \
   mariadb \
   procmail \
-  cronie \
-  httpd httpd-devel \
-  perl-core \
-  mod_perl \
+  cronie
+
+# OTRS
+RUN yum -y install http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.6-01.noarch.rpm
+
+# OTRS additional perl modules; listed by /opt/otrs/bin/otrs.CheckModules.pl command.
+RUN yum -y install \
   "perl(Apache2::Reload)" \
+  "perl(Archive::Tar)" \
   "perl(Archive::Zip)" \
   "perl(Crypt::Eksblowfish::Bcrypt)" \
   "perl(Crypt::SSLeay)" \
   "perl(Date::Format)" \
+  "perl(DBI)" \
+  "perl(DBD::mysql)" \
   "perl(Encode::HanExtra)" \
   "perl(GD)" \
   "perl(GD::Text)" \
   "perl(GD::Graph)" \
-  "perl(JSON::XS)" \
   "perl(IO::Socket::SSL)" \
+  "perl(JSON::XS)" \
+  "perl(List::Util::XS)" \
   "perl(LWP::UserAgent)" \
   "perl(Mail::IMAPClient)" \
+  "perl(ModPerl::Util)" \
   "perl(Net::DNS)" \
   "perl(Net::LDAP)" \
   "perl(PDF::API2)" \
-  "perl(URI)" \
   "perl(Template)" \
+  "perl(Template::Stash::XS)" \
   "perl(Text::CSV_XS)" \
+  "perl(Time::HiRes)" \
+  "perl(Time::Piece)" \
   "perl(XML::Parser)" \
-  "perl(YAML::XS)" \
-  "perl(DBD::mysql)"
-
-#OTRS
-RUN rpm -ivh http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-4.0.6-01.noarch.rpm
+  "perl(YAML::XS)"
 
 #OTRS COPY Configs
 ADD otrs/Config.pm /opt/otrs/Kernel/Config.pm
