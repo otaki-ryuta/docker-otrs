@@ -43,6 +43,13 @@ RUN yum -y install \
   "perl(XML::Parser)" \
   "perl(YAML::XS)"
 
+# OTRS additional Japanese TTF fonts for exporting various data in PDF format
+RUN yum -y install \
+  ipa-gothic-fonts \
+  ipa-mincho-fonts \
+  ipa-pgothic-fonts \
+  ipa-pmincho-fonts
+
 #OTRS COPY Configs
 ADD otrs/Config.pm /opt/otrs/Kernel/Config.pm
 RUN chgrp apache   /opt/otrs/Kernel/Config.pm
