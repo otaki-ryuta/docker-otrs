@@ -14,7 +14,13 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "docker" do |d|
+    d.pull_images "mysql:5.6"
+    d.run "mysql",
+      image: "mysql:5.6",
+      args: "-P -e MYSQL_ROOT_PASSWORD=otrspass"
+  end
+  config.vm.provision "docker" do |d|
     d.build_image "-t takipone/otrs /vagrant"
-    d.run "takipone/otrs", args: "-p 80:80"
+    d.run "takipone/otrs", args: "-p 80:80 --link mysql:mysql"
   end
 end
