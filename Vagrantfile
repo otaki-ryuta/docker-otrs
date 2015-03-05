@@ -21,6 +21,6 @@ Vagrant.configure(2) do |config|
   end
   config.vm.provision "docker" do |d|
     d.build_image "-t takipone/otrs /vagrant"
-    d.run "takipone/otrs", args: "-p 80:80 --link mysql:mysql"
+    d.run "takipone/otrs", args: "-p 80:80 -e OTRS_ENV=develop --link mysql:mysql -v /var/log/httpd:/var/log/httpd"
   end
 end
