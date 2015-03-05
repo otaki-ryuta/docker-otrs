@@ -60,9 +60,9 @@ ADD httpd/zzz_otrs.conf /etc/httpd/conf.d/zzz_otrs.conf
 RUN rm /etc/httpd/conf.d/welcome.conf
 
 #enable crons
-#WORKDIR /opt/otrs/var/cron/
-#USER otrs
-#CMD ["/bin/bash -c 'for foo in *.dist; do cp $foo `basename $foo .dist`; done'"]
+WORKDIR /opt/otrs/var/cron/
+USER otrs
+CMD ["/bin/bash -c 'for foo in *.dist; do cp $foo `basename $foo .dist`; done'"]
 
 USER root
 EXPOSE 80
