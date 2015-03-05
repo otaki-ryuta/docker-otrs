@@ -66,4 +66,5 @@ CMD ["/bin/bash -c 'for foo in *.dist; do cp $foo `basename $foo .dist`; done'"]
 
 USER root
 EXPOSE 80
-CMD ["httpd", "-DFOREGROUND"]
+ADD run.sh /run.sh
+CMD ["/run.sh"]
