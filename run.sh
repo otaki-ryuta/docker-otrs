@@ -18,7 +18,7 @@
 #wait
 #service httpd start
 #wait
-service crond start
+#service crond start
 #exec /usr/sbin/sshd -D
 
 # change Config.pm whether OTRS_ENV value
@@ -39,6 +39,9 @@ sed -i \
   -e "s/__DB_USER__/${DB_USER}/g" \
   -e "s/__DB_PASS__/${DB_PASS}/g" \
   /opt/otrs/Kernel/Config.pm
+
+# run Crond(chrony)
+crond
 
 # run Apache
 httpd -DFOREGROUND
