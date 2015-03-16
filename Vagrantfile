@@ -13,13 +13,13 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "playbook.yml"
   end
 
-  config.vm.provision "docker" do |d|
+  config.vm.provision "mysql-container", type: "docker" do |d|
     d.pull_images "mysql:5.6"
     d.run "mysql",
       image: "mysql:5.6",
       args: "-P -e MYSQL_ROOT_PASSWORD=otrspass"
   end
-  config.vm.provision "docker" do |d|
+  config.vm.provision "otrs-container", type: "docker" do |d|
     d.build_image "-t takipone/otrs /vagrant"
     d.run "takipone/otrs", args: "-p 80:80 -e OTRS_ENV=develop --link mysql:mysql -v /var/log/httpd:/var/log/httpd"
   end
