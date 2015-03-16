@@ -76,26 +76,6 @@ sub Load {
     # $Self->{SessionUseCookie} = 0;
     # $Self->{CheckMXRecord} = 0;
  
-    $Self->{'CheckEmailAddresses'} = 0;
-    $Self->{'CheckMXRecord'}       = 0;
-    $Self->{'Organization'}        = '';
-    $Self->{'LogModule'}           = 'Kernel::System::Log::File';
-    $Self->{'LogModule::LogFile'}  = '/tmp/otrs.log';
-    $Self->{'DefaultLanguage'}     = 'de';
-    $Self->{'DefaultCharset'}      = 'utf-8';
-    $Self->{'AdminEmail'}          = 'root@localhost';
-    $Self->{'Package::Timeout'}    = '120';
-    # Misc
-    $Self->{'Loader::Enabled::CSS'}  = 0;
-    $Self->{'Loader::Enabled::JS'}   = 0;
-    $Self->{'FAQ::Item::Field1'} =  {
-      'Caption' => 'Symptom',
-      'Prio' => '100',
-      'Show' => 'false'
-    };
-    # Add for ELB frontend
-    $Self->{SessionCheckRemoteIP} = 0;
-
     # ---------------------------------------------------- #
 
     # ---------------------------------------------------- #
