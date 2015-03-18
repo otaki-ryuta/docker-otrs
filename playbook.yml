@@ -1,8 +1,0 @@
----
-- hosts: all
-  tasks:
-    - name: install latest docker
-      shell: curl -sSL https://get.docker.com/ubuntu/ | sudo sh
-    - name: add vagrant user to docker group
-      command: gpasswd -a vagrant docker
-      sudo: yes      
