@@ -1,8 +1,9 @@
 OTRS4向けDockerfileとデプロイ用設定ファイル
 ==========================================
 
-- 開発環境 : [Vagrant](https://www.vagrantup.com/) バージョン1.5以上
+- 開発環境 : [Docker Compose](https://docs.docker.com/compose/) バージョン1.1
   - VirtualBox
+  - Boot2Docker
   - Mac OS X Yosemite(Windowsでも多分できます)
 - 本番環境 : [AWS Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) Docker
   - [EB](http://docs.aws.amazon.com/ja_jp/elasticbeanstalk/latest/dg/command-reference-eb.html) バージョン3
@@ -11,19 +12,26 @@ OTRS4向けDockerfileとデプロイ用設定ファイル
 
 ### 開発環境
 
-VirtualBoxの仮想マシン上にOTRSとMySQLのDockerコンテナを構成します(**MySQLのコンテナは未実装**)。
-諸々Vagrantで自動化してあるので、Vagrantの操作で一括デプロイできます。具体的な設定は、`Vagrantfile`を参照ください。
+VirtualBoxのBoot2Docker仮想マシン上にOTRSとMySQLのDockerコンテナを構成します
+諸々Docker Composeで自動化してあるので、`docker-compose`コマンドの操作で一括デプロイできます。具体的な設定は、`docker-compose.yml`を参照ください。
 
-1. VagrantでVMイメージ(Box)をダウンロードします。数分〜数十分かかります。
+1. Boot2Dockerをセットアップし、仮想マシンを起動します。
 ```
-$ vagrant box add utopic64 https://cloud-images.ubuntu.com/vagrant/utopic/current/utopic-server-cloudimg-amd64-vagrant-disk1.box
+$ boot2docker init
+$ boot2docker up
+(コマンド実行結果の末尾3行を~/.bash_profileに追記して再ログイン)
+    export DOCKER_CERT_PATH=/Users/ryuta/.boot2docker/certs/boot2docker-vm
+    export DOCKER_TLS_VERIFY=1
+    export DOCKER_HOST=tcp://192.168.59.103:2376
+$ docker version
 ```
-2. `Vagrantfile`を読み込んでVM作成し、AnsibleでDockerをインストール、VagrantのDocker ProvisionerでDockerfileからの`docker build`、コンテナを実行する`docker run`が走ります。
+2. Docker Composeを実行
 ```
 $ cd <REPO_ROOT>
-$ vagrant up
+$ docker-compose build
+$ docker-compose up
 ```
-3.  VMは固定IP`192.168.33.11`が振られるので、ブラウザで`http://192.168.33.11/otrs/installer.pl`にアクセスすればOTRSのインストールウィザードが表示されます。
+3.  VMのIPアドレスは、`boot2docker ip`で確認できるので、ブラウザで`http://IPアドレス/installer.pl`にアクセスすればOTRSのインストールウィザードが表示されます。
 
 ### 本番環境
 
@@ -47,7 +55,7 @@ $ eb deploy
 
 ## TODO
 
-- (未)開発環境のMySQLコンテナの構成を追加
+-
 
 ## メンテナ
 
