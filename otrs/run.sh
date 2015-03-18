@@ -18,7 +18,7 @@
 #wait
 #service httpd start
 #wait
-#service crond start
+service cron start
 #exec /usr/sbin/sshd -D
 
 # change Config.pm whether OTRS_ENV value
@@ -40,8 +40,4 @@ sed -i \
   -e "s/__DB_PASS__/${DB_PASS}/g" \
   /opt/otrs/Kernel/Config.pm
 
-# run Crond(chrony)
-crond
-
-# run Apache
-httpd -DFOREGROUND
+carton exec starman --preload-app -MDBD::mysql -MKernel::System::Ticket --listen :80 ./bin/cgi-bin/app.psgi

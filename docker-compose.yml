@@ -1,0 +1,13 @@
+otrs:
+  build: ./otrs
+  links:
+   - mysql
+  ports:
+   - "80:80"
+  environment:
+    OTRS_ENV: develop
+mysql:
+  build: ./mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: otrspass
+
